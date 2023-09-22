@@ -1,0 +1,7 @@
+CREATE TABLE customer (
+	customer_id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY,
+	first_name VARCHAR(45) NOT NULL,
+	last_name VARCHAR(45) NOT NULL,
+	city VARCHAR NOT NULL,
+	CONSTRAINT customer_pk PRIMARY KEY (customer_id)
+);
