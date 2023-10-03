@@ -1,8 +1,9 @@
-version: '3.8'
+version: '1.0'
 
 services:
   postgres:
     image: postgres:13
+    container_name: postgres-service
     environment:
       POSTGRES_DB: consumption-service-db
       POSTGRES_USER: root
@@ -21,7 +22,7 @@ services:
     depends_on:
       - postgres
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/consumption-service-db
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-service:5432/consumption-service-db
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
 
