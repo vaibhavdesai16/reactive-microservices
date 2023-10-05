@@ -35,7 +35,7 @@ class ConsumptionServiceTest(
         // act
         val result = consumptionService.calculateConsumption(123L, startDate, endDate);
 
-        // verify
+        // assert
         StepVerifier.create(result?.flux() ?: Mono.empty())
             .expectNext(4.0F)
         consumptionService.calculateConsumption(123L,startDate,
@@ -48,7 +48,7 @@ class ConsumptionServiceTest(
         val startDate =  LocalDateTime.parse("2023-08-01T19:34:50.63")
         val endDate = LocalDateTime.parse("2023-08-08T19:34:50.63")
 
-        // act and asset
+        // act and assert
         shouldNotThrow<InvalidDateRange> { consumptionService.validateDate(startDate, endDate)}
     }
 
@@ -58,7 +58,7 @@ class ConsumptionServiceTest(
         val startDate =  LocalDateTime.parse("2023-08-08T19:34:50.63")
         val endDate = LocalDateTime.parse("2023-08-01T19:34:50.63")
 
-        // act and asset
+        // act and assert
         shouldThrow<InvalidDateRange> { consumptionService.validateDate(startDate, endDate)}
     }
 }
