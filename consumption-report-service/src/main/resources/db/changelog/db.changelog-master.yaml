@@ -1,9 +1,0 @@
-databaseChangeLog:
-  - include:
-      file: classpath:/db/changelog/migrations/001_create_customer_table.sql
-  - include:
-      file: classpath:/db/changelog/migrations/002_create_consumption_table.sql
-  - include:
-      file: classpath:/db/changelog/migrations/003_default_data_user_table.sql
-  - include:
-      file: classpath:/db/changelog/migrations/004_default_data_consumption_table.sql

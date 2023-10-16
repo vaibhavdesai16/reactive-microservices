@@ -33,6 +33,9 @@ dependencies {
 	testImplementation group: 'io.mockk', name: 'mockk', version: '1.12.0'
 	testImplementation group: 'io.projectreactor', name: 'reactor-test'
 
+	implementation("org.flywaydb:flyway-core:8.5.11")
+	runtimeOnly("org.postgresql:postgresql")
+
 }
 
 bootJar {
