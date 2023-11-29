@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumer-service-app
+  template:
+    metadata:
+      labels:
+        app: consumer-service-app
+    spec:
+      containers:
+        - name: spring-app-container
+          image: consumer-service-app:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres-service:5432/consumption-service-db
+            - name: SPRING_DATASOURCE_USERNAME
+              value: root
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: root
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: consumer-service-app
+spec:
+  selector:
+    app: consumer-service-app
+  ports:
+    - protocol: "TCP"
+      port: 8080
+      targetPort: 8080

@@ -2,6 +2,7 @@ package com.practice.crs.service
 
 import com.practice.crs.entity.Consumption
 import com.practice.crs.exception.InvalidDateRange
+import com.practice.crs.exception.NoConsumptionRecordFoundException
 import com.practice.crs.repository.ConsumptionRepository
 import io.kotlintest.shouldNotThrow
 import io.kotlintest.shouldThrow
@@ -40,6 +41,24 @@ class ConsumptionServiceTest(
             .expectNext(4.0F)
         consumptionService.calculateConsumption(123L,startDate,
             endDate)
+    }
+
+    @Test
+    fun `should throw exception when either date has no consumption record`(){
+        // arrange
+        val startDate =  LocalDateTime.parse("2023-08-01T19:34:50.63")
+        val endDate = LocalDateTime.parse("2023-08-08T19:34:50.63")
+        val consumptionStart = Consumption(123L, 1001L, startDate, 20.5F);
+        val consumptionRepository = mockk<ConsumptionRepository>()
+
+        every { consumptionRepository.findLatestByCustomerIdAndTimestamp(any(), startDate) }returns Mono
+            .just(consumptionStart)
+        every { consumptionRepository.findLatestByCustomerIdAndTimestamp(any(), startDate) } returns Mono
+            .empty()
+
+        // act and assert
+        shouldThrow<NoConsumptionRecordFoundException> { consumptionService.calculateConsumption(123L, startDate, endDate) }
+
     }
 
     @Test

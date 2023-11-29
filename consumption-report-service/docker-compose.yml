@@ -17,6 +17,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: consumer-service-app
+    container_name: consumer-service-app-container
     ports:
       - "8080:8080"
     depends_on:
